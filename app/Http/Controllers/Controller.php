@@ -6,8 +6,16 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderShipped;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function sendMail()
+    {
+        Mail::to('hktloveskt@gmail')->queue(new OrderShipped());
+        return view('first');
+    }
 }
